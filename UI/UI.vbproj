@@ -1329,7 +1329,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+  <!--<Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
@@ -1338,7 +1338,7 @@
     <Error Condition="!Exists('..\packages\Node.MSBuild.1.0.2\build\Node.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Node.MSBuild.1.0.2\build\Node.MSBuild.props'))" />
     <Error Condition="!Exists('..\packages\Node.MSBuild.1.0.2\build\Node.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Node.MSBuild.1.0.2\build\Node.MSBuild.targets'))" />
   </Target>
-  <Import Project="..\packages\Node.MSBuild.1.0.2\build\Node.MSBuild.targets" Condition="Exists('..\packages\Node.MSBuild.1.0.2\build\Node.MSBuild.targets')" />
+  <Import Project="..\packages\Node.MSBuild.1.0.2\build\Node.MSBuild.targets" Condition="Exists('..\packages\Node.MSBuild.1.0.2\build\Node.MSBuild.targets')" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

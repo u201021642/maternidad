@@ -2,12 +2,12 @@
     Private _idEmbarazoEctopico As Integer
     Private _idCasoPaciente As Integer
     Private _fechaUltimoPeriodo As Date
-    Private _tamanoAncho As Double
-    Private _tamanoLargo As Double
-    Private _tamanoAlto As Double
-    Private _diametroMaximo As Double
+    Private _tamanoAncho As Decimal
+    Private _tamanoLargo As Decimal
+    Private _tamanoAlto As Decimal
+    Private _diametroMaximo As Decimal
     Private _volumen As Double
-    Private _espesorEndometrial As Double
+    Private _espesorEndometrial As Decimal
     Private _hCG_PRGT As String
     Private _beta_hCG As String
     Private _PRGT As String
@@ -26,6 +26,17 @@
     Private _idAccionTomar As Integer
     Private _idImpresionSubjetiva As Integer
     Private _idGradoCerteza As Integer
+
+    Private _desTestEmbarazoOrina As String
+    Private _desLocalizacion As String
+    Private _desMorfologia As String
+    Private _desSangradoVaginal As String
+    Private _desDolor As String
+    Private _desEstructura As String
+    Private _desAccionTomar As String
+    Private _desImpresionSubjetiva As String
+    Private _desGradoCerteza As String
+    Private _muestraSangre As String
 
     Public Property IdEmbarazoEctopico As Integer
         Get
@@ -51,51 +62,51 @@
             _fechaUltimoPeriodo = value
         End Set
     End Property
-    Public Property TamanoAncho As Double
+    Public Property TamanoAncho As Decimal
         Get
             Return _tamanoAncho
         End Get
-        Set(value As Double)
+        Set(value As Decimal)
             _tamanoAncho = value
         End Set
     End Property
-    Public Property TamanoLargo As Double
+    Public Property TamanoLargo As Decimal
         Get
             Return _tamanoLargo
         End Get
-        Set(value As Double)
+        Set(value As Decimal)
             _tamanoLargo = value
         End Set
     End Property
-    Public Property TamanoAlto As Double
+    Public Property TamanoAlto As Decimal
         Get
             Return _tamanoAlto
         End Get
-        Set(value As Double)
+        Set(value As Decimal)
             _tamanoAlto = value
         End Set
     End Property
-    Public Property DiametroMaximo As Double
+    Public Property DiametroMaximo As Decimal
         Get
             Return _diametroMaximo
         End Get
-        Set(value As Double)
+        Set(value As Decimal)
             _diametroMaximo = value
         End Set
     End Property
-    Public Property Volumen As Double
+    Public Property Volumen As Decimal
         Get
             Return _volumen
         End Get
-        Set(value As Double)
+        Set(value As Decimal)
             _volumen = value
         End Set
     End Property
-    Public Property EspesorEndometrial As Double
+    Public Property EspesorEndometrial As Decimal
         Get
             Return _espesorEndometrial
         End Get
-        Set(value As Double)
+        Set(value As Decimal)
             _espesorEndometrial = value
         End Set
     End Property
@@ -244,4 +255,93 @@
         End Set
     End Property
 
+    Public Property DesTestEmbarazoOrina As String
+        Get
+            Return _desTestEmbarazoOrina
+        End Get
+        Set(value As String)
+            _desTestEmbarazoOrina = value
+        End Set
+    End Property
+
+    Public Property DesLocalizacion As String
+        Get
+            Return _desLocalizacion
+        End Get
+        Set(value As String)
+            _desLocalizacion = value
+        End Set
+    End Property
+
+    Public Property DesMorfologia As String
+        Get
+            Return _desMorfologia
+        End Get
+        Set(value As String)
+            _desMorfologia = value
+        End Set
+    End Property
+
+    Public Property DesSangradoVaginal As String
+        Get
+            Return _desSangradoVaginal
+        End Get
+        Set(value As String)
+            _desSangradoVaginal = value
+        End Set
+    End Property
+
+    Public Property DesDolor As String
+        Get
+            Return _desDolor
+        End Get
+        Set(value As String)
+            _desDolor = value
+        End Set
+    End Property
+
+    Public Property DesEstructura As String
+        Get
+            Return _desEstructura
+        End Get
+        Set(value As String)
+            _desEstructura = value
+        End Set
+    End Property
+
+    Public Property DesAccionTomar As String
+        Get
+            Return _desAccionTomar
+        End Get
+        Set(value As String)
+            _desAccionTomar = value
+        End Set
+    End Property
+
+    Public Property DesImpresionSubjetiva As String
+        Get
+            Return _desImpresionSubjetiva
+        End Get
+        Set(value As String)
+            _desImpresionSubjetiva = value
+        End Set
+    End Property
+
+    Public Property DesGradoCerteza As String
+        Get
+            Return _desGradoCerteza
+        End Get
+        Set(value As String)
+            _desGradoCerteza = value
+        End Set
+    End Property
+
+    Public Property MuestraSangre As String
+        Get
+            Return _muestraSangre
+        End Get
+        Set(value As String)
+            _muestraSangre = value
+        End Set
+    End Property
 End Class

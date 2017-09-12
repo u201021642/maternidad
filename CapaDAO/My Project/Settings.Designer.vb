@@ -57,8 +57,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=BD_CLINICA_RP;user id=sa;password=" &
-            "MaR271991ViC")>
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=BD_CLINICA_RP;Integrated Security=True")>
         Public ReadOnly Property cadena() As String
             Get
                 Return CType(Me("cadena"),String)

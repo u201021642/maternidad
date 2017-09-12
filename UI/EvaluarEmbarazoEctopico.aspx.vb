@@ -30,7 +30,7 @@ Public Class EvaluarEmbarazoEctopico
             dictionary.Add("impresionSubjetivas", lstImpresionesSubjetivas)
             dictionary.Add("gradosCertezas", lstGradosCertezas)
 
-            Session("listas") = JsonConvert.SerializeObject(dictionary, Formatting.Indented)
+
             If Session("Paciente") IsNot Nothing Then
                 paciente = Session("Paciente")
                 txtPaciente.Text = paciente.descripcion
@@ -46,7 +46,10 @@ Public Class EvaluarEmbarazoEctopico
                     lblCaso.Text = Caso.Numero
                     'txtCodigo.Text = Caso.numero
                 End If
+                dictionary.Add("idCaso", caso.Id)
             End If
+
+            Session("listas") = JsonConvert.SerializeObject(dictionary, Formatting.Indented)
         Else
             Response.Redirect("/Account/Login.aspx")
         End If

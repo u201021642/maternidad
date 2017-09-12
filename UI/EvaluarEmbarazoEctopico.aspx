@@ -3,6 +3,7 @@
     <div id="app-evaluarEmbarazo" class="container">
 
         {{ getInit(<%= Session("listas") %>) }}
+        
         <div class="row spacer">
             <div class="col-lg-4">
                 <div class="panel panel-default">
@@ -114,28 +115,36 @@
                             </div>
                         </div>
                         <div class="spacer"></div>
+                        <div v-show="!camposValidos">
+                            <div class="alert alert-danger" role="alert">Por favor corriga los errores</div>
+                        </div>
+                        <div class="spacer"></div>
                         <div class="row vertical-align form-group">           
                             <div class="col-sm-3"><label for="sel1">Test embarazo - orina:</label></div>
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboTestEmbarazosOrinas" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in testEmbarazoOrinas" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">   
+                                    <select class="form-control" id="cboTestEmbarazosOrinas" v-model="objEvaluarEmbarazoEctopico.idTestEmbarazoOrina">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in testEmbarazoOrinas" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdTestEmbarazoOrina" class="text-danger field-validation-error">Debe seleccionar una Test de Embarazo</span>
+                                </div>
+                                
                             </div>
                             <div class="col-sm-3">
-                                <button type="button" class="btn btn-primary" @click.stop.prevent="transferirMedidad">Transferir medidas</button>
+                                <button type="button" class="btn btn-primary" @click="transferirMedidad">Transferir medidas</button>
                             </div>                               
                         </div>
                         <div class="row vertical-align form-group">           
                             <div class="col-sm-3"><label for="sel1">Fecha último período:</label></div>
                             <div class="col-sm-3">
-                                <input class="form-control disabled" type="text" value="04/08/2017" disabled/>
+                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.fechaUltimoPeriodo" disabled/>
                             </div>
                             <div class="col-sm-3">
                                 <label for="sel1">Tamaño - ancho:</label>
                             </div>  
                             <div class="col-sm-2">
-                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.tamanioAncho" disabled />
+                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.tamanoAncho" disabled />
                             </div>
                             <div class="col-sm-1">
                                 mm
@@ -144,16 +153,19 @@
                         <div class="row vertical-align form-group">
                             <div class="col-sm-3"><label for="sel1">Localización:</label></div>
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboLocalizaciones" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in localizaciones" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">   
+                                    <select class="form-control" id="cboLocalizaciones" v-model="objEvaluarEmbarazoEctopico.idLocalizacion">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in localizaciones" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdLocalizacion" class="text-danger field-validation-error">Debe seleccionar una Localización</span>
+                                </div>
                             </div>                            
                             <div class="col-sm-3">
                                 <label for="sel1">Tamaño - largo:</label>
                             </div>  
                             <div class="col-sm-2">
-                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.tamanioLargo" disabled />
+                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.tamanoLargo" disabled />
                             </div>
                             <div class="col-sm-1">
                                 mm
@@ -162,16 +174,19 @@
                         <div class="row vertical-align form-group">
                             <div class="col-sm-3"><label for="sel1">Morfología:</label></div>
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboMorfologias" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in morfologias" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">   
+                                    <select class="form-control" id="cboMorfologias" v-model="objEvaluarEmbarazoEctopico.idMorfologia">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in morfologias" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdMorfologia" class="text-danger field-validation-error">Debe seleccionar una Morfología</span>
+                                </div>
                             </div>                            
                             <div class="col-sm-3">
                                 <label for="sel1">Tamaño - altura:</label>
                             </div>  
                             <div class="col-sm-2">
-                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.tamanioAltura" disabled />
+                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.tamanoAlto" disabled />
                             </div>
                             <div class="col-sm-1">
                                 mm
@@ -180,10 +195,13 @@
                         <div class="row vertical-align form-group">
                             <div class="col-sm-3"><label for="sel1">Sangrado vaginal:</label></div>
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboSangradoVaginales" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in sangradoVaginales" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="cboSangradoVaginales" v-model="objEvaluarEmbarazoEctopico.idSangradoVaginal">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in sangradoVaginales" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdSangradoVaginal" class="text-danger field-validation-error">Debe seleccionar un tipo de Sangrado Vaginal</span>
+                                </div>                                
                             </div>                            
                             <div class="col-sm-3">
                                 <label for="sel1">Diámetro máximo:</label>
@@ -198,10 +216,13 @@
                         <div class="row vertical-align form-group">
                             <div class="col-sm-3"><label for="sel1">Dolor:</label></div>
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboDolores" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in dolores" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="cboDolores" v-model="objEvaluarEmbarazoEctopico.idDolor">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in dolores" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdDolor" class="text-danger field-validation-error">Debe seleccionar un tipo de Dolor</span>
+                                </div>
                             </div>                            
                             <div class="col-sm-3">
                                 <label for="sel1">Volúmen:</label>
@@ -216,10 +237,13 @@
                         <div class="row vertical-align form-group">
                             <div class="col-sm-3"><label for="sel1">Estructura:</label></div>
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboEstructuras" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in estructuras" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="cboEstructuras" v-model="objEvaluarEmbarazoEctopico.idEstructura">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in estructuras" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdEstructura" class="text-danger field-validation-error">Debe seleccionar un tipo de estructura</span>
+                                </div>
                             </div>                            
                             <div class="col-sm-3">
                                 <label for="sel1">Espesor endometrial:</label>
@@ -233,7 +257,7 @@
                         </div>
                         <div class="row vertical-align form-group">
                             <div class="col-sm-6 checkbox">
-                                <label><input type="checkbox" value="">Muestra de sangre p/ monitorear hCG - PRGT</label>
+                                <label><input type="checkbox" v-model="objEvaluarEmbarazoEctopico.hcg_prgt">Muestra de sangre p/ monitorear hCG - PRGT</label>
                             </div>  
                             <div class="col-sm-2">
                                 <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.horaHcgPrgt" disabled />
@@ -242,7 +266,7 @@
                         <div class="row vertical-align form-group">  
                             <div class="col-sm-3"><label for="sel1">Beta hCG en 0 horas:</label></div>   
                             <div class="col-sm-2">
-                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.betaHcg0Horas" disabled />
+                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.beta_Hcg" disabled />
                             </div>
                              <div class="col-sm-1">
                                 UI/I
@@ -251,7 +275,7 @@
                         <div class="row vertical-align form-group">  
                             <div class="col-sm-3"><label for="sel1">PRGT en 0 horas:</label></div>   
                             <div class="col-sm-2">
-                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.prgt0Horas" disabled />
+                                <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.prgt" disabled />
                             </div>
                              <div class="col-sm-1">
                                 UI/I
@@ -260,10 +284,13 @@
                         <div class="row vertical-align form-group">  
                             <div class="col-sm-3"><label for="sel1">Acción a tomar:</label></div>   
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboAcciones" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in acciones" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="cboAcciones" v-model="objEvaluarEmbarazoEctopico.idAccionTomar">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in acciones" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdAccionTomar" class="text-danger field-validation-error">Debe seleccionar una acción a tomar</span>
+                                </div>
                             </div>         
                         </div>
                         <div class="row vertical-align form-group">  
@@ -276,7 +303,7 @@
                                     </span>
                                 </div>--%>
                                 <div class='input-group date' id='datetimepicker6'>
-                                    <input type='text' class="form-control" v-model="fechaActual" />
+                                    <input type='text' class="form-control" v-model="objEvaluarEmbarazoEctopico.fechaMuestra" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -290,7 +317,7 @@
                         <div class="row vertical-align form-group">  
                             <div class="col-sm-3"><label for="sel1">Beta hCG en 48 horas:</label></div>   
                             <div class="col-sm-2">
-                                 <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.betaHcg48Horas" disabled />
+                                 <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.beta_Hcg_48h" disabled />
                             </div> 
                             <div class="col-sm-1">
                                 UI/I
@@ -299,7 +326,7 @@
                         <div class="row vertical-align form-group">  
                             <div class="col-sm-3"><label for="sel1">PRGT en 48 horas:</label></div>   
                             <div class="col-sm-2">
-                                 <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.prgt48Horas" disabled />
+                                 <input class="form-control disabled" type="text" v-model="objEvaluarEmbarazoEctopico.prgt_48h" disabled />
                             </div>    
                             <div class="col-sm-1">
                                 UI/I
@@ -308,17 +335,23 @@
                         <div class="row vertical-align form-group">  
                             <div class="col-sm-3"><label for="sel1">Impresión subjetiva:</label></div>   
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboImpresiones" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in impresionSubjetivas" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="cboImpresiones" v-model="objEvaluarEmbarazoEctopico.idImpresionSubjetiva">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in impresionSubjetivas" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdImpresionSubjetiva" class="text-danger field-validation-error">Debe seleccionar una impresión subjetiva</span>
+                                </div>
                             </div> 
                             <div class="col-sm-3"><label for="sel1">Grado de certeza:</label></div>   
                             <div class="col-sm-3">
-                                <select class="form-control" id="cboGradosCertezas" >
-                                    <option value="" selected>Seleccione</option>
-                                    <option v-for="item in gradosCertezas" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="cboGradosCertezas" v-model="objEvaluarEmbarazoEctopico.idGradoCerteza">
+                                        <option value="" selected>Seleccione</option>
+                                        <option v-for="item in gradosCertezas" :value="item.IdCatalogo">{{item.DescripcionCatalogo}}</option>                  
+                                    </select>
+                                    <span v-show="!validation.IdGradoCerteza" class="text-danger field-validation-error">Debe seleccionar un grado de certeza</span>
+                                </div>
                             </div>  
                         </div>
                         <div class="row vertical-align form-group">
@@ -365,13 +398,13 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <textarea class="form-control" cols="" rows="">
+                                <textarea class="form-control" cols="" rows="" v-model="objEvaluarEmbarazoEctopico.comentarios">
                                 </textarea>
                             </div>                            
                         </div>
                         <div class="row vertical-align form-group">
                             <div class="col-sm-6 text-right">
-                                <button type="button" class="btn btn-primary ">Generar Informe</button>
+                                <button type="button" class="btn btn-primary" @click="addNuevaEvaluacionEmbarazo">Generar Informe</button>
                             </div>
                             <div class="col-sm-6 text-left">
                                 <asp:button ID="btnSalir" runat="server" class="btn btn-primary" text="Salir"></asp:button>

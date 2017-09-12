@@ -850,4 +850,80 @@ Public Class Conexion
             Throw New Exception(ex.Message)
         End Try
     End Function
+    Public Function GetEvaluacionEmbarazoEctopico(ByVal id As Integer) As DataTable
+        Dim Da As New SqlDataAdapter
+        Dim queryString = "SELECT A.[idEmbarazoEctopico]
+                          ,A.[idCasoPaciente]
+                          ,A.[fechaUltimoPeriodo]
+                          ,A.[tamanoAncho]
+                          ,A.[tamanoLargo]
+                          ,A.[tamanoAlto]
+                          ,A.[diametroMaximo]
+                          ,A.[volumen]
+                          ,A.[espesorEndometrial]
+                          ,A.[hCG_PRGT]
+                          ,A.[beta_hCG]
+                          ,A.[PRGT]
+                          ,A.[fechaMuestra]
+                          ,A.[beta_hCG_48h]
+                          ,A.[PRGT_48h]
+                          ,A.[Comentarios]
+                          ,A.[EmbarazoEctopico]
+                          ,A.[EmbarazoIntrauterino]
+                          ,A.[idTestEmbarazoOrina]
+	                      ,B.descripcionCatalogo desTestEmbarazoOrina
+                          ,A.[idLocalizacion]
+	                      ,C.descripcionCatalogo desLocalizacion
+                          ,A.[idMorfologia]
+	                      ,D.descripcionCatalogo desMorfologia
+                          ,A.[idSangradoVaginal]
+	                      ,E.descripcionCatalogo desSangradoVaginal
+                          ,A.[idDolor]
+	                      ,F.descripcionCatalogo desDolor
+                          ,A.[idEstructura]
+	                      ,G.descripcionCatalogo desEstructura
+                          ,A.[idAccionTomar]
+	                      ,H.descripcionCatalogo desAccionTomar
+                          ,A.[idImpresionSubjetiva]
+	                      ,I.descripcionCatalogo desImpresionSubjetiva
+                          ,A.[idGradoCerteza]
+	                      ,J.descripcionCatalogo desGradoCerteza
+                      FROM [dbo].[T_EMBARAZO_ECTOPICO] A
+                      INNER JOIN [dbo].[T_CATALOGO] B
+                      ON A.idTestEmbarazoOrina = B.idCatalogo
+                      INNER JOIN [dbo].[T_CATALOGO] C
+                      ON A.idLocalizacion = C.idCatalogo
+                      INNER JOIN [dbo].[T_CATALOGO] D
+                      ON A.idMorfologia = D.idCatalogo
+                      INNER JOIN [dbo].[T_CATALOGO] E
+                      ON A.idSangradoVaginal = E.idCatalogo
+                      INNER JOIN [dbo].[T_CATALOGO] F
+                      ON A.idDolor = F.idCatalogo
+                      INNER JOIN [dbo].[T_CATALOGO] G
+                      ON A.idEstructura = G.idCatalogo
+                      INNER JOIN [dbo].[T_CATALOGO] H
+                      ON A.idAccionTomar = H.idCatalogo
+                      INNER JOIN [dbo].[T_CATALOGO] I
+                      ON A.idImpresionSubjetiva = I.idCatalogo
+                      INNER JOIN [dbo].[T_CATALOGO] J
+                      ON A.idGradoCerteza = J.idCatalogo
+                      WHERE A.idEmbarazoEctopico = @id"
+
+        Using cn As New SqlConnection(My.Settings.cadena)
+            Using cmd As New SqlCommand(queryString, cn)
+                Try
+                    cmd.CommandType = CommandType.Text
+                    cn.Open()
+                    cmd.Parameters.AddWithValue("@id", id)
+                    Da.SelectCommand = cmd
+                    Using dt As New DataTable
+                        Da.Fill(dt)
+                        Return dt
+                    End Using
+                Catch ex As Exception
+                    Throw New Exception(ex.Message)
+                End Try
+            End Using
+        End Using
+    End Function
 End Class
